@@ -38,14 +38,15 @@ else:
 # Application definition
 
 INSTALLED_APPS = [
+    "lucide",
+    "crispy_forms",
+    "crispy_bootstrap4",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "crispy_forms",
-    "crispy_bootstrap4",
     "timer",
     "currencyCalculator",
     "quiz",
@@ -55,7 +56,6 @@ INSTALLED_APPS = [
     "mathOps",
     "maxGradeCal",
     "users",
-    "lucide",
 ]
 
 MIDDLEWARE = [
