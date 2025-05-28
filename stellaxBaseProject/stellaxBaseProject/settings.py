@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,9 +24,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-*e_9(hl6b+g6xb_vf4t52b_@(v*9w2j8oh43=5f7#8iu1sqhym"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+if os.getenv("USE_MYSQL", "false") == "true":
+    DEBUG = False
+else:
+    DEBUG = True
 
-ALLOWED_HOSTS = ["stellax.pythonanywhere.com"]
+if os.getenv("USE_MYSQL", "false") == "true":
+    ALLOWED_HOSTS = ["stellax.pythonanywhere.com"]
+else:
+    ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -84,15 +91,24 @@ WSGI_APPLICATION = "stellaxBaseProject.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "stellax$default",
-        "USER": "stellax",
-        "PASSWORD": "tinaVeryPretty",
-        "HOST": "stellax.mysql.pythonanywhere-services.com",
+if os.getenv("USE_MYSQL", "false") == "true":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": os.getenv("MYSQL_DATABASE_NAME"),
+            "USER": os.getenv("MYSQL_USER"),
+            "PASSWORD": os.getenv("MYSQL_PASSWORD"),
+            "HOST": os.getenv("MYSQL_HOST", "localhost"),
+            "PORT": "3306",
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
