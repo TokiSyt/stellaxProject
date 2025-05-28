@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-*e_9(hl6b+g6xb_vf4t52b_@(v*9w2j8oh43=5f7#8iu1sqhym
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['stellax.pythonanywhere.com']
+ALLOWED_HOSTS = ["stellax.pythonanywhere.com"]
 
 
 # Application definition
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     "mathOps",
     "maxGradeCal",
     "users",
-    "lucide"
+    "lucide",
 ]
 
 MIDDLEWARE = [
@@ -85,12 +85,12 @@ WSGI_APPLICATION = "stellaxBaseProject.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'stellax$default',
-        'USER': 'stellax',
-        'PASSWORD': 'tinaVeryPretty',
-        'HOST': 'stellax.mysql.pythonanywhere-services.com',
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "stellax$default",
+        "USER": "stellax",
+        "PASSWORD": "tinaVeryPretty",
+        "HOST": "stellax.mysql.pythonanywhere-services.com",
     }
 }
 
@@ -129,10 +129,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
-MEDIA_URL = 'media/'
+MEDIA_URL = "media/"
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-MEDIA_ROOT = BASE_DIR/'mediafiles'
+STATIC_ROOT = BASE_DIR / "staticfiles"
+MEDIA_ROOT = BASE_DIR / "mediafiles"
 
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
@@ -147,3 +147,4 @@ LOGOUT_REDIRECT_URL = "/"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
+AUTH_USER_MODEL = "users.CustomUser"
