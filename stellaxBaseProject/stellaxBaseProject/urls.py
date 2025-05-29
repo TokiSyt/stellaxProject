@@ -9,7 +9,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.homePage, name="home"),
     path("", include("django.contrib.auth.urls")),
-    path("register/", v.register, name="register"),
+    path("register/", v.RegisterView.as_view(), name="register"),
     path("wishList/", include("wishList.urls")),
     path("timer/", include("timer.urls")),
     path("quiz/", include("quiz.urls")),

@@ -1,9 +1,9 @@
 from django.urls import path
-from . import views
+from .views import ProfileView, EditProfileView, ChangePassword, SettingsView
 
 urlpatterns = [
-    path("profile/", views.profile_view, name="profile"),
-    path("profile/edit/", views.edit_profile, name="edit_profile"),
-    path("profile/password/", views.change_password, name="change-password"),
-    path("settings/", views.user_settings, name="settings"),
+    path("profile/", ProfileView.as_view(), name="profile"),
+    path("profile/edit/", EditProfileView.as_view(), name="edit_profile"),
+    path("profile/password/", ChangePassword.as_view(), name="change-password"),
+    path("settings/", SettingsView.as_view(), name="settings"),
 ]
