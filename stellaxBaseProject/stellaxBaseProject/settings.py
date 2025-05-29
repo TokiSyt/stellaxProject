@@ -24,12 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-*e_9(hl6b+g6xb_vf4t52b_@(v*9w2j8oh43=5f7#8iu1sqhym"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.getenv("USE_MYSQL", "false") == "true":
+USE_MYSQL = os.getenv("USE_MYSQL", "false").lower() == "true"
+
+if USE_MYSQL:
     DEBUG = False
 else:
     DEBUG = True
 
-if os.getenv("USE_MYSQL", "false") == "true":
+if USE_MYSQL:
     ALLOWED_HOSTS = ["stellax.pythonanywhere.com"]
 else:
     ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
@@ -91,7 +93,7 @@ WSGI_APPLICATION = "stellaxBaseProject.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-if os.getenv("USE_MYSQL", "false") == "true":
+if USE_MYSQL:
     DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
