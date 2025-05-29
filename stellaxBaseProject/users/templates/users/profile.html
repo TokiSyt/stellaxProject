@@ -6,9 +6,18 @@ Profile
 
 {% block content %}
 <h1>
-    Welcome to your profile, {{ request.user.username }}!
+    Welcome to your profile, {{ request.user.first_name }}!
 </h1>
+<hr>
+<h3>Account Info</h3>
+<p>Username: {{ request.user.username }} </p>
+<p>First Name: {{ request.user.first_name }} </p>
+<p>Surname: {{ request.user.last_name }} </p>
+<p>Email: {{ request.user.email }}</p>
+<hr>
 <p>
-    More information will be added soon.
+    <a href="{% url 'edit_profile' %}" class="general-btn">
+    Edit
+    </a>
 </p>
 {% endblock content %}
