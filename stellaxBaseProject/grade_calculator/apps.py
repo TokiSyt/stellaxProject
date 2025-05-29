@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class MaxgradecalConfig(AppConfig):
+class GradeCalculatorConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "maxGradeCal"
+    name = "grade_calculator"

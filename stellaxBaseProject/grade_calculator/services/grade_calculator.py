@@ -1,4 +1,4 @@
-def calculate_grades(max_points: int, rounding_option: int) -> list[float]:
+def grade_calculator(max_points: int, rounding_option: int) -> list[float]:
     """
     Calculates grade thresholds based on max_points and rounding option.
 

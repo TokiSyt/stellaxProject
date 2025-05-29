@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     "wishList",
     "excel",
     "mathOps",
-    "maxGradeCal",
+    "grade_calculator",
     "users",
 ]
 

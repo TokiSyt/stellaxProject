@@ -1,7 +1,7 @@
 from django import forms
 
 
-class gradeCalculatorForm(forms.Form):
+class GradeCalculatorForm(forms.Form):
     max_points = forms.FloatField(label="Max Points", min_value=0)
 
     rounding_option = forms.TypedChoiceField(

@@ -16,7 +16,7 @@ urlpatterns = [
     path("excel/", include("excel.urls")),
     path("currencyCalculator/", include("currencyCalculator.urls")),
     path("wheel/", include("wheel.urls")),
-    path("mathOps", include("mathOps.urls")),
-    path("maxGradeCal", include("maxGradeCal.urls")),
+    path("mathOps/", include("mathOps.urls")),
+    path("grade-calculator/", include("grade_calculator.urls")),
     path("users/", include("users.urls")),
 ]
