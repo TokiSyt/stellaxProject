@@ -93,15 +93,16 @@ WSGI_APPLICATION = "stellaxBaseProject.wsgi.application"
 
 if os.getenv("USE_MYSQL", "false") == "true":
     DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "NAME": os.getenv("MYSQL_DATABASE_NAME"),
-            "USER": os.getenv("MYSQL_USER"),
-            "PASSWORD": os.getenv("MYSQL_PASSWORD"),
-            "HOST": os.getenv("MYSQL_HOST", "localhost"),
-            "PORT": "3306",
-        }
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "stellax$default",
+        "USER": "stellax",
+        "PASSWORD": "NotTokiProject",
+        "HOST": "stellax.mysql.pythonanywhere-services.com",
+        "PORT": "3306",
     }
+}
+    
 else:
     DATABASES = {
         "default": {
