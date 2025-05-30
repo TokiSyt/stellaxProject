@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+List Creation
+{% endblock title %}
+
+{% block content %}
+<h1>List creation:</h1>
+<hr>
+<form method="POST">
+    {% csrf_token %}
+    <p>dunno</p>
+    <p>
+        <a href="/group_maker" class="general-btn">Cancel</a>
+        <button type="submit">Save</button>
+    </p>
+</form>
+{% endblock content %}
