@@ -13,7 +13,7 @@ class GroupMakerHome(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["groups"] = GroupCreationModel.objects.all()
+        context["groups"] = GroupCreationModel.objects.filter(user=self.request.user)
         context["form"] = self.form_class()
         context["group_split"] = kwargs.get("group_split")
         context["selected_group"] = kwargs.get("selected_group")
@@ -26,7 +26,7 @@ class GroupMakerHome(LoginRequiredMixin, TemplateView):
             group_id = request.POST.get("group_id")
             group_size = form.cleaned_data["size"]
 
-            group = GroupCreationModel.objects.get(id=group_id)
+            group = get_object_or_404(GroupCreationModel, id=group_id, user=request.user)
             members = group.get_members_list()
 
             group_split = group_split_f(members, group_size)
@@ -37,7 +37,7 @@ class GroupMakerHome(LoginRequiredMixin, TemplateView):
                 {
                     "form": form,
                     "group_split": group_split,
-                    "groups": GroupCreationModel.objects.all(),
+                    "groups": GroupCreationModel.objects.filter(user=request.user),
                     "selected_group": group,
                 },
             )
@@ -50,7 +50,14 @@ class GroupMakerListCreate(LoginRequiredMixin, CreateView):
     form_class = GroupCreationForm
 
     def form_valid(self, form):
+        form.instance.user = self.request.user
         return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy("home")
+
+#patch
+class GroupMakerListEdit(LoginRequiredMixin, UpdateView):
+    model = ""
+    template_name = "group_maker/list_edit.html"
+    form_class = ""
