@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import GroupMaker, ListCreation
+from .views import GroupMakerHome, GroupMakerListCreate
 
 urlpatterns = [
-    path("", GroupMaker.as_view(), name="home"),
-    path("list-creation/", ListCreation.as_view(), name="list-creation"),
+    path("", GroupMakerHome.as_view(), name="home"),
+    path("list-creation/", GroupMakerListCreate.as_view(), name="list-creation"),
 ]
