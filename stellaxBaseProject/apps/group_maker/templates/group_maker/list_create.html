@@ -11,22 +11,14 @@
         {% csrf_token %}
 
         <div class="mb-3">
-            <label for="id_title" class="form-label">Title</label>
-            {{ form.title }}
-        </div>
-
-        <div class="mb-3">
-            <label for="id_members_string" class="form-label">Members (comma-separated)</label>
-            {{ form.members_string }}
-            {% if form.members_string.help_text %}
-                <div class="form-text">{{ form.members_string.help_text }}</div>
-            {% endif %}
+            {{form.as_p}}
         </div>
 
         <div class="d-flex gap-2">
             <button type="submit" class="btn btn-primary">Save</button>
             <a href="{% url 'home' %}" class="btn btn-outline-secondary">Cancel</a>
         </div>
+        
     </form>
 </div>
 {% endblock content %}
