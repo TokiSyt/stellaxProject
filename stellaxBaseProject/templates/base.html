@@ -2,7 +2,8 @@
 {% load lucide %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang=en class="{% if request.user.is_authenticated %}{{ request.user.theme }}-theme{% else %}dark-theme{% endif %}">
+
 
 <head>
   <meta charset="UTF-8">
@@ -18,65 +19,17 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </head>
-
-  <style>
-    body {
-      min-height: 100vh;
-      display: flex;
-      overflow-x: hidden;
-    }
-
-    .sidebar {
-      width: 80px;
-      background-color: #f8f9fa;
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-      border-right: 1px solid #dee2e6;
-    }
-
-    .sidebar a,
-    .sidebar form {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0.75rem 0;
-      color: #333;
-      text-decoration: none;
-    }
-
-    .sidebar a:hover svg,
-    .sidebar button:hover svg {
-      color: #0d6efd;
-    }
-
-    .sidebar svg {
-      transition: color 0.2s;
-    }
-
-    .separator {
-      border-top: 1px solid #ccc;
-      margin: 1rem 0;
-    }
-
-    .main-content {
-      flex-grow: 1;
-      padding: 2rem;
-    }
-
-    button {
-      background: none;
-      border: none;
-      padding: 0;
-      cursor: pointer;
-    }
-
-    button:focus {
-      outline: none;
-    }
-  </style>
 </head>
 
 <body>
+
+  <style>
+    :root {
+        --icon-hover-color: {{ request.user.icon_hover_color }};
+    }
+  </style>
+
+
   <nav class="sidebar">
     <a href="/" title="Home" class="sidebar-icon">
       <span class="icon" role="img" aria-label="Home">
@@ -97,9 +50,11 @@
           </span>
       </a>
 
-      <span class="icon" role="img" aria-label="Separator">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-minus-icon lucide-minus"><path d="M5 12h14"/></svg>
-      </span>
+      <a class="sidebar-icon-separator">
+        <span class="icon" role="img" aria-label="separator">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-minus-icon lucide-minus"><path d="M5 12h14"/></svg>
+        </span>
+      </a>
 
       <a href="/timer" class="sidebar-icon">
         <span role="img" aria-label="Timer" title="Timer">
@@ -151,7 +106,7 @@
 
       <form action="{% url 'logout' %}" method="post" class="logout-icon">
         {% csrf_token %}
-        <button type="submit" aria-label="logout" title="Logout">
+        <button type="submit" aria-label="logout" title="Logout" class="logout-button">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
         </button>
       </form>

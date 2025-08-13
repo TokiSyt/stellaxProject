@@ -3,6 +3,7 @@ from .forms import RegisterForm, EditProfileForm, CustomPasswordChangeForm
 from django.views.generic import FormView, TemplateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
 
@@ -41,8 +42,29 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
 
 class SettingsView(LoginRequiredMixin, TemplateView):
-    template_name = "wip.html"
+    template_name = "users/settings.html"
 
+    def post(self, request):
+        profile = request.user
+        updated = False
+
+        if "icon_hover_color" in request.POST:
+            profile.icon_hover_color = request.POST["icon_hover_color"]
+            updated = True
+
+        if "theme" in request.POST:
+            profile.theme = request.POST["theme"]
+            updated = True
+
+        if "toggle_theme" in request.POST:
+            profile.theme = "dark" if profile.theme == "light" else "light"
+            updated = True
+            
+        if updated:
+            profile.save()
+
+        return redirect(request.path)
+        
 
 class EditProfileView(LoginRequiredMixin, UpdateView):
     model = User
