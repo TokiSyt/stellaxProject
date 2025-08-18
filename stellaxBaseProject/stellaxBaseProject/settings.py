@@ -31,10 +31,7 @@ if USE_MYSQL:
 else:
     DEBUG = True
 
-if USE_MYSQL:
-    ALLOWED_HOSTS = ["stellax.pythonanywhere.com"]
-else:
-    ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -43,7 +40,7 @@ INSTALLED_APPS = [
     "lucide",
     "crispy_forms",
     "crispy_bootstrap4",
-    'widget_tweaks',
+    "widget_tweaks",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -55,11 +52,11 @@ INSTALLED_APPS = [
     "apps.quiz",
     "apps.wheel",
     "apps.todo_list",
-    "apps.excel",
     "apps.math_ops",
     "apps.grade_calculator",
     "apps.users",
     "apps.group_maker",
+    "apps.point_system",
 ]
 
 MIDDLEWARE = [
@@ -95,25 +92,12 @@ WSGI_APPLICATION = "stellaxBaseProject.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-if USE_MYSQL:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "NAME": "stellax$default",
-            "USER": "stellax",
-            "PASSWORD": "NotTokiProject",
-            "HOST": "stellax.mysql.pythonanywhere-services.com",
-            "PORT": "3306",
-        }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
-
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
