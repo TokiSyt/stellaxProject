@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "apps.timer",
     "apps.currency_calculator",
-    "apps.quiz",
     "apps.wheel",
     "apps.todo_list",
     "apps.math_ops",

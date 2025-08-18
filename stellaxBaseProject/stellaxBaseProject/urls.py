@@ -14,7 +14,6 @@ urlpatterns = [
     path("register/", v.RegisterView.as_view(), name="register"),
     path("todo_list/", include("apps.todo_list.urls")),
     path("timer/", include("apps.timer.urls")),
-    path("quiz/", include("apps.quiz.urls")),
     path("currency_calculator/", include("apps.currency_calculator.urls")),
     path("wheel/", include("apps.wheel.urls")),
     path("math_ops/", include("apps.math_ops.urls")),
