@@ -9,7 +9,7 @@ services:
     plan: free
     name: mysite
     runtime: python
-    buildCommand: './stellaxBaseProject/build.sh'
+    buildCommand: './build.sh'
     startCommand: 'python -m gunicorn stellaxBaseProject.asgi:application -k uvicorn.workers.UvicornWorker'
     envVars:
       - key: DATABASE_URL
