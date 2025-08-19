@@ -9,8 +9,9 @@ services:
     plan: free
     name: stellax-web
     runtime: python
-    buildCommand: './build.sh'
-    startCommand: 'cd stellaxBaseProject && python -m gunicorn stellaxBaseProject.asgi:application -k uvicorn.workers.UvicornWorker'
+    buildCommand: ./build.sh
+    startCommand: gunicorn stellaxBaseProject.wsgi:application
+    postDeployCommand: python manage.py migrate --noinput
     envVars:
       - key: DATABASE_URL
         fromDatabase:
