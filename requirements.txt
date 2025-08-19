@@ -14,5 +14,5 @@ packaging==25.0
 psycopg2-binary==2.9.10
 sqlparse==0.5.3
 tzdata==2025.2
-uvicorn==0.35.0
+uvicorn==22.0
 whitenoise==6.9.0
