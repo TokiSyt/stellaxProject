@@ -2,7 +2,7 @@ databases:
   - name: stellaxdb
     plan: free
     databaseName: stellax
-    user: postgres
+    user: stellaxuser
 
 services:
   - type: web
