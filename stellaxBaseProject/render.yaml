@@ -1,20 +1,20 @@
 databases:
-  - name: stellaxdb
+  - name: stellaxBaseProjectdb
     plan: free
-    databaseName: stellax
-    user: stellaxuser
+    databaseName: stellaxBaseProject
+    user: stellaxBaseProject
 
 services:
   - type: web
     plan: free
-    name: stellax-web
+    name: stellaxBaseProject
     runtime: python
     buildCommand: ./build.sh
     startCommand: gunicorn stellaxBaseProject.wsgi:application
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: stellaxdb
+          name: stellaxBaseProjectdb
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
