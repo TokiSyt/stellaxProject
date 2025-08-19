@@ -94,7 +94,7 @@ WSGI_APPLICATION = "stellaxBaseProject.wsgi.application"
 
 DATABASES = {
     "default": dj_database_url.config(
-        default="postgresql://stellaxuser:tokiefixe@localhost:5432/stellaxdb",
+        default="postgresql://postgres:tokiefixe@localhost:5432/stellaxdb",
         conn_max_age=600,
     )
 }

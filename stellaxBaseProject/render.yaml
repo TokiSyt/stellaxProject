@@ -1,20 +1,20 @@
 databases:
-  - name: stellaxBaseProjectdb
+  - name: mysitedb
     plan: free
-    databaseName: stellaxBaseProject
-    user: stellaxBaseProject
+    databaseName: mysite
+    user: mysite
 
 services:
   - type: web
     plan: free
-    name: stellaxBaseProject
+    name: mysite
     runtime: python
-    buildCommand: ./build.sh
-    startCommand: gunicorn stellaxBaseProject.wsgi:application
+    buildCommand: './build.sh'
+    startCommand: 'python -m gunicorn stellaxBaseProject.asgi:application -k uvicorn.workers.UvicornWorker'
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: stellaxBaseProjectdb
+          name: mysitedb
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
