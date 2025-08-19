@@ -10,7 +10,7 @@ services:
     name: stellax-web
     runtime: python
     buildCommand: './build.sh'
-    startCommand: 'gunicorn stellaxBaseProject.asgi:application -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT'
+    startCommand: 'python -m gunicorn stellaxBaseProject.stellaxBaseProject.asgi:application -k uvicorn.workers.UvicornWorker'
     envVars:
       - key: DATABASE_URL
         fromDatabase:
