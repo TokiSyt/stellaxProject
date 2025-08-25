@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}
+Karma System
+{% endblock title %}
+
+{% block content %}
+<div class="form-wrapper">
+    <h1>Karma system</h1>
+    <hr>
+
+    <form method="POST" class="form">
+        {% csrf_token %}
+        
+        <div class="">
+            <label for="groupSelect" class="form-label">Select a group:</label>
+            <select id="groupSelect" name="group_id" id="group-select" class="form-select" required>
+
+                <option value="" disabled hidden selected>Select a group</option>
+
+                {% for group in groups %}
+                    <option value="{{ group.id }}" {% if selected_group and selected_group.id == group.id %}selected{% endif %}>
+                        {{ group.title }} ({{ group.size }} members)
+                    </option>
+                {% endfor %}
+                
+            </select>
+        </div>
+
+        <div class="form-container">
+            <button type="submit" class="primary-btn">Display points</button>
+            <a href="{% url 'group_maker:group-maker-creation' %}" class="secondary-btn">Create a group</a>
+            <a href="{% url 'karma-home' %}" class="secondary-btn">Reset</a>
+            {% if selected_group %}
+                <a id="editGroupsBtn" href="{% url 'group_maker:group-maker-edit' selected_group.id %}" class="secondary-btn">Edit group</a>
+            {% else %}
+                <a id="editGroupsBtn" href="#" class="secondary-btn disabled">Edit group</a>
+            {% endif %}
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const groupSelect = document.getElementById("groupSelect");
+        const editBtn = document.getElementById("editGroupsBtn");
+        const baseUrl = "{% url 'group_maker:group-maker-edit' 0 %}".replace("0", ""); 
+
+        function updateEditLink() {
+            const groupId = groupSelect.value;
+            if (groupId) {
+                editBtn.href = baseUrl + groupId;
+                editBtn.classList.remove("disabled");
+            } else {
+                editBtn.href = "#";
+                editBtn.classList.add("disabled");
+            }
+        }
+
+        groupSelect.addEventListener("change", updateEditLink);
+        updateEditLink();
+    });
+</script>
+{% endblock content %}
