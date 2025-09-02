@@ -51,7 +51,7 @@
                         <tbody>
                             {% for member in members %}
                             <tr>
-                                <td>{{ member.name }}</td>
+                                <td><a href="{% url 'karma:karma-dashboard' member.id%}">{{ member.name }}</a></td>
                                 {% for key in negative_data %}
                                     <td>
                                         <input type="{{ column_type_negative|get_item:key }}" 
@@ -94,7 +94,7 @@
                         <tbody>
                             {% for member in members %}
                             <tr>
-                                <td>{{ member.name }}</td>
+                                <td><a href="{% url 'karma:karma-dashboard' member.id%}">{{ member.name }}</a></td>
                                 {% for key in positive_data %}
                                     <td>
                                         <input type="{{ column_type_positive|get_item:key }}" 
