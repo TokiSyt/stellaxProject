@@ -1,9 +1,9 @@
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import GroupCreationForm
-from .models import GroupCreationModel
-from django.urls import reverse_lazy
 from django.utils.http import url_has_allowed_host_and_scheme
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import GroupCreationModel
+from .forms import GroupCreationForm
+from urllib.parse import urlparse, parse_qs
 
 class GroupHome(LoginRequiredMixin, TemplateView):
     template_name = "group_maker/home.html"
@@ -55,7 +55,11 @@ class GroupDelete(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         next_url = self.request.POST.get("next") or self.request.GET.get("next")
         if next_url and url_has_allowed_host_and_scheme(next_url, allowed_hosts={self.request.get_host()}):
-            return next_url
+            parsed = urlparse(next_url)
+            query = parse_qs(parsed.query)
+            query.pop("group_id", None)
+            cleaned_url = parsed._replace(query="").geturl()
+            return cleaned_url
         return "/"
 
     def get_context_data(self, **kwargs):
