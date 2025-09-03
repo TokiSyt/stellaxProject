@@ -15,12 +15,15 @@ class Member(models.Model):
 
     positive_total = models.IntegerField(default=0, blank=True)
     negative_total = models.IntegerField(default=0, blank=True)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.name} ({self.group.title})"
 
     class Meta:
-        ordering = ["name"]
+        ordering = ["id"]
 
 
 class FieldDefinition(models.Model):
@@ -38,3 +41,12 @@ class FieldDefinition(models.Model):
         choices=[("positive", "Positive"), ("negative", "Negative")],
         default="positive",
     )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["group", "name", "definition"], name="unique_field_per_group_and_table"
+            )
+        ]

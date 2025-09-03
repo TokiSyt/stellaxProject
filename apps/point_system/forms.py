@@ -64,3 +64,9 @@ class RemoveFieldForm(forms.Form):
         field_choices = kwargs.pop("field_choices", [])
         super().__init__(*args, **kwargs)
         self.fields["field_name"].choices = [(c, c) for c in field_choices]
+        
+        
+class EditColumnForm(forms.Form):
+    new_name = forms.CharField(max_length=50)
+    old_name = forms.CharField(max_length=50)
+    field_definition = forms.ChoiceField(choices=[('positive', 'Positive'), ('negative', 'Negative')])
