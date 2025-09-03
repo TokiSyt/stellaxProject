@@ -178,8 +178,16 @@ form label {
   border: none;
   display: flex;
   gap: 0.5rem;
+  text-align: center;
   margin-top: 1rem;
 }
+
+.form-container td:first-child {
+    text-align: left;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
 
 .form-collection .form-container {
   display: block;
@@ -421,4 +429,28 @@ button {
   display: block;
   margin: 0 auto;
   box-sizing: border-box;
+}
+
+.level-orange:hover td,
+.level-orange td.always-colored {
+  background-color: rgba(248, 192, 88, 0.836);
+  color: #9e5909;
+}
+
+.level-red td.always-colored,
+.level-red:hover td{
+  background-color:rgba(248, 141, 141, 0.836);
+  color: #8f190a;
+}
+
+.level-red-dark td.always-colored,
+.level-red-dark:hover td {
+  background-color: rgba(214, 36, 36, 0.904);
+  color: #750b0b;
+}
+
+.level-green td.always-colored,
+.level-green:hover td {
+  background-color: rgba(160, 218, 172, 0.904);
+  color: #18742f;
 }
