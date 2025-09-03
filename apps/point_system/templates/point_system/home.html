@@ -23,11 +23,16 @@
         </div>
 
         <div class="form-container">
+        {% if selected_group %}
             <button type="submit" class="primary-btn">Show points</button>
             <a href="{% url 'karma:karma-home' %}" class="secondary-btn">Reset</a>
             <a id="editGroupsBtn" href="#" class="secondary-btn">Edit group</a>
             <a href="{% url 'group_maker:group-maker-creation' %}" class="secondary-btn">Create a group</a>
             <a id="deleteGroupBtn" href="#" class="delete-btn">Delete</a>
+        {% else %}
+            <button type="submit" class="primary-btn">Show points</button>
+            <a href="{% url 'group_maker:group-maker-creation' %}" class="secondary-btn">Create a group</a>
+        {% endif %}
         </div>
     </form>
 
@@ -50,17 +55,19 @@
                         </thead>
                         <tbody>
                             {% for member in members %}
-                            <tr>
+                            <tr class="{{ member.negative_total|negativity_class }}">
                                 <td><a href="{% url 'karma:karma-dashboard' member.id%}">{{ member.name }}</a></td>
-                                {% for key in negative_data %}
+                                {% for column in negative_data %}
                                     <td>
-                                        <input type="{{ column_type_negative|get_item:key }}" 
-                                            name="{{ member.id }}_negative_{{ key }}" 
-                                            value="{{ member.negative_data|get_item:key }}" 
+                                        <input type="{{ column_type_negative|get_item:column}}" 
+                                            name="{{ member.id }}_negative_{{ column }}" 
+                                            value="{{ member.negative_data|get_item:column }}" 
                                             class="form-control">
                                     </td>
                                 {% endfor %}
-                                <td>{{ member.negative_total }}</td>
+                                <td class="always-colored">
+                                    <strong>{{ member.negative_total }}</strong>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -70,10 +77,15 @@
             </div>
 
             <div class="form-container">
-                <button type="submit" name="negative_save" class="primary-btn">Save points</button>
-                <a href="?group_id={{ group_id }}" class="secondary-btn">Cancel changes</a>
-                <a href="{% url 'karma:new-column' selected_group.id %}?table=negative" class="secondary-btn">Add column</a>
-                <a href="{% url 'karma:delete-column' selected_group.id %}?table=negative" name="negative_data" class="delete-btn">Delete column</a>
+                {% if negative_data %}
+                    <button type="submit" name="negative_save" class="primary-btn">Save points</button>
+                    <a href="?group_id={{ group_id }}" class="secondary-btn">Cancel changes</a>
+                    <a href="{% url 'karma:new-column' selected_group.id %}?table=negative" class="secondary-btn">Add column</a>
+                    <a href="{% url 'karma:edit-column' selected_group.id %}?table=negative" class="secondary-btn">Edit column</a>
+                    <a href="{% url 'karma:delete-column' selected_group.id %}?table=negative" name="negative_data" class="delete-btn">Delete column</a>
+                {% else %}
+                    <a href="{% url 'karma:new-column' selected_group.id %}?table=negative" class="secondary-btn">Add column</a>
+                {% endif %}
             </div>
 
             <br>
@@ -93,17 +105,19 @@
                         </thead>
                         <tbody>
                             {% for member in members %}
-                            <tr>
+                            <tr class="{{ member.positive_total|positivity_class }}">
                                 <td><a href="{% url 'karma:karma-dashboard' member.id%}">{{ member.name }}</a></td>
-                                {% for key in positive_data %}
+                                {% for column in positive_data %}
                                     <td>
-                                        <input type="{{ column_type_positive|get_item:key }}" 
-                                            name="{{ member.id }}_positive_{{ key }}"
-                                            value="{{ member.positive_data|get_item:key }}" 
+                                        <input type="{{ column_type_positive|get_item:column }}" 
+                                            name="{{ member.id }}_positive_{{ column }}"
+                                            value="{{ member.positive_data|get_item:column }}" 
                                             class="form-control">
                                     </td>
                                 {% endfor %}
-                                <td>{{ member.positive_total }}</td>
+                                <td class="always-colored">
+                                    <strong>{{ member.positive_total }}</strong>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -113,10 +127,15 @@
             </div>
 
             <div class="form-container">
+            {% if positive_data %}
                 <button type="submit" name="positive_save" class="primary-btn">Save points</button>
                 <a href="?group_id={{ group_id }}" class="secondary-btn">Cancel changes</a>
                 <a href="{% url 'karma:new-column' selected_group.id %}?table=positive" class="secondary-btn">Add column</a>
+                <a href="{% url 'karma:edit-column' selected_group.id %}?table=positive" class="secondary-btn">Edit column</a>
                 <a href="{% url 'karma:delete-column' selected_group.id %}?table=positive" name="positive_data" class="delete-btn">Delete column</a>
+                {% else %}
+                    <a href="{% url 'karma:new-column' selected_group.id %}?table=positive" class="secondary-btn">Add column</a>
+                {% endif %}
             </div>
 
         </form>

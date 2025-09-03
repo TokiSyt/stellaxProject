@@ -34,12 +34,14 @@ class GroupCreationModel(models.Model):
 
         from apps.point_system.models import Member
 
-        current_names = set(self.get_members_list())
+        current_names = self.get_members_list()
+        current_names_ordered = list(dict.fromkeys(current_names))
+        
         existing_members = self.karma_members.all()
 
         for member in existing_members:
             if member.name not in current_names:
                 member.delete()
 
-        for name in current_names:
+        for name in current_names_ordered:
             Member.objects.get_or_create(group=self, name=name)
